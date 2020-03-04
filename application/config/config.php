@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$config['base_url'] = 'localhost/Tendedero/';
+$config['base_url'] = '';
 
 $config['index_page'] = 'index.php';
 
@@ -57,7 +57,7 @@ $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
 $config['cookie_path']		= '/';
 $config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+//$config['cookie_httponly'] 	= FALSE;
 
 $config['standardize_newlines'] = FALSE;
 
