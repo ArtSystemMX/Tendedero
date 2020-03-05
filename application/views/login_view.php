@@ -6,11 +6,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <head>
 
 	<script src="https://use.fontawesome.com/4a3b3d9687.js"></script>
+	<link rel="stylesheet" href="http://tendederodeluna.com/css/css/bulma.min.css" />
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>El Tendedero de Luna - Iniciar Sesión</title>
-	<link rel="stylesheet" href="http://tendederodeluna.com/css/css/bulma.min.css" />
+
 
 </head>
 

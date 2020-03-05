@@ -5,7 +5,6 @@ class Login extends CI_Controller{
   public function __construct(){
     parent::__construct();
     $this->load->model('login_model');
-    $this->load->library('session');
   }
 
   function index(){
@@ -28,21 +27,22 @@ class Login extends CI_Controller{
         'usuario' => $usuarioNombre,
         'empleado' => $usuarioEmpleado,
         'nivel' => $usuarioNivel,
-        'logged_in' => TRUE
+        'logged' => TRUE
       );
       $this->session->set_userdata($datosSesion);
-      if($usuarioNivel === 'ADMINISTRADOR'){
+      var_dump($this->session->userdata());
+      if($this->session->userdata('nivel') === 'ADMINISTRADOR'){
         redirect('sistema/administrador');
 
       }elseif($usuarioNivel === 'VENDEDOR'){
-        redirect('sistema/vendedor');
+        //redirect('sistema/vendedor');
       }else{
         echo $this->session->set_flashdata('msg','Usuario o Contraseña Incorrectos');
-        redirect('login');
+        //redirect('login');
       }
     }else{
       echo $this->session->set_flashdata('msg','Usuario o Contraseña Incorrectos');
-      redirect('login');
+      //redirect('login');
     }
     function logout(){
       $this->session->sess_destroy();
