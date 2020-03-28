@@ -35,19 +35,20 @@ class Login extends CI_Controller{
         redirect('sistema/administrador');
 
       }elseif($usuarioNivel === 'VENDEDOR'){
-        //redirect('sistema/vendedor');
+        redirect('sistema/vendedor');
       }else{
         echo $this->session->set_flashdata('msg','Usuario o Contraseña Incorrectos');
-        //redirect('login');
+        redirect('login');
       }
     }else{
       echo $this->session->set_flashdata('msg','Usuario o Contraseña Incorrectos');
-      //redirect('login');
-    }
-    function logout(){
-      $this->session->sess_destroy();
       redirect('login');
     }
 
+  }
+
+  function logout(){
+    $this->session->sess_destroy();
+    redirect('login');
   }
 }

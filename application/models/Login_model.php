@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Login_model extends CI_Model{
 
-
   //Función para verificar Usuario y Contraseña
   function validate($usuario,$password){
     $this->db->where('vUsuarioNombre',$usuario);

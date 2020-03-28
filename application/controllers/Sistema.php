@@ -4,6 +4,7 @@ class Sistema extends CI_Controller{
 
   public function __construct(){
     parent::__construct();
+    $this->load->model('login_model');
     //Redirigir a la pagina de LOGIN si no se encuentra una sesión activa
     if($this->session->userdata('logged') !== TRUE){
       redirect('login');
@@ -11,7 +12,8 @@ class Sistema extends CI_Controller{
   }
 
   function administrador(){
-    //Permitir acceso solo a usuarios ADMINISTRADORES
+    //Cargar la página con las opciones de ADMINISTRADOR, redirigir si se
+    //intenta acceder con un nivel distinto
     if($this->session->userdata('nivel')=='ADMINISTRADOR'){
       $this->load->view('dashboard_view');
     }else{
@@ -20,7 +22,8 @@ class Sistema extends CI_Controller{
   }
 
   function vendedor(){
-    //Permitir acceso solo a usuarios VENDEDORES
+    //Cargar la página con las opciones de VENDEDOR, redirigir si se
+    //intenta acceder con un nivel distinto
     if($this->session->userdata('nivel')=='VENDEDOR'){
       $this->load->view('dashboard_view');
     }else{
