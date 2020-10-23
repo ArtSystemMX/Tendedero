@@ -13,21 +13,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script>
   $(document).ready(function(){
     var columnaVentana = $('td#celdaFormulario');
+    var nombreModulo;
     $("a").click(function(){
       $("a").removeClass('is-active');
       $(this).addClass("is-active");
       //Obtenemos el nombre del módulo al que intenta accesar el Usuario
-      var nombreModulo = $(this).attr('name');
+      nombreModulo = $(this).attr('name');
       //codigo para cargar cada una de las páginas a según la opción del menú a la que se hace click
       switch (nombreModulo) {
         //En el caso del módulo de clientes
         case 'clientes':
-        $("#formulario").html('<table id="botones"><tr><td><form action="" method="POST"><input class="Submit" type="Submit" value="Nuevo"></form></td></tr></table><table style="width:100%;"><tr><td><input id="buscadorClientes" style="width:100%;" type="text" placeholder="Buscar Cliente..."/></td></tr></table>');
+        $("#formulario").html('<table id="botones"><tr><td><a class = "button is-primary modal-button" data-target = "#modal">Launch example modal</a></td></tr></table><table style="width:100%;"><tr><td><input id="buscadorClientes" style="width:100%;" type="text" placeholder="Buscar Cliente..."/></td></tr></table>');
         //Llamada a la función para cargar el módulo clientes
         cargarModuloClientes('');
         break;
         default:
-
+        break;
       }
     });
 
@@ -66,10 +67,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
   });
+
   </script>
 
 </head>
 <body>
+
   <table class="table" style="width:100%;">
     <tr>
       <td  style="background-color:lavender; width:15%;">
@@ -126,5 +129,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </td>
     </tr>
   </table>
+
+
+  <script>
+      $(".modal-button").click(function() {
+        var target = $(this).data("target");
+        $("html").addClass("is-clipped");
+        $(target).addClass("is-active");
+        console.log("error");
+      });
+      
+      $(".modal-close").click(function() {
+        $("html").removeClass("is-clipped");
+        $(this).parent().removeClass("is-active");
+      });
+  </script>
+
+
 </body>
 </html>

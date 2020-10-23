@@ -8,23 +8,34 @@ class Sistema_model extends CI_Model{
     $this->db->select("*");
     $this->db->from("tCliente");
     if($query!=''){
-      $this->db->like("clienteNombre",$query);
-      $this->db->or_like("clienteTelefono",$query);
+      $this->db->like("vNombre",$query);
+      $this->db->or_like("vTelefono",$query);
     }
-    $this->db->order_by('clienteCodigo','DESC');
+    $this->db->order_by('vNombre','DESC');
     $consultaBd=$this->db->get();
     if ($consultaBd->num_rows() > 0) {
       foreach ($consultaBd->result_array() as $result) {
         $data[]=array(
-          'clienteCodigo' => $result['clienteCodigo'],
-          'clienteNombre' => $result['clienteNombre'],
-          'clienteTelefono' => $result['clienteTelefono'],
-          'clienteModificar' => '<form action="modificar/'.$result['clienteCodigo'].'" method="POST"><input class="Submit" type="Submit" value="Modificar"/></form>',
-          'clienteEliminar' => '<form action="eliminar/'.$result['clienteCodigo'].'" method="POST"><input class="Submit" type="Submit" value="Eliminar"/></form>'
+          'clienteNombre' => $result['vNombre'],
+          'clienteTelefono' => $result['vTelefono'],
+          'clienteModificar' => '<form action="modificar/'.$result['vTelefono'].'" method="POST"><input class="Submit" type="Submit" value="Modificar"/></form>',
+          'clienteEliminar' => '<form action="eliminar/'.$result['vTelefono'].'" method="POST"><input class="Submit" type="Submit" value="Eliminar"/></form>'
         );
       }
       return $data;
     }
+  }
+
+  function cargarModuloServicios($query){
+
+  }
+
+  function cargarModuloEmpleados($query){
+    
+  }
+
+  function cargarModuloEncargos($query){
+    
   }
 
 }

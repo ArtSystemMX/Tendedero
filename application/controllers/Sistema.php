@@ -39,7 +39,7 @@ class Sistema extends CI_Controller{
     if($this->input->post('query')){
       $query=$this->input->post('query');
     }
-    $this->table->set_heading(array('Codigo', 'Nombre', 'Telefono','Modificar','Eliminar'));
+    $this->table->set_heading(array('Nombre', 'Telefono','Modificar','Eliminar'));
     $consulta = $this->sistema_model->cargarModuloClientes($query);
     $template = array(
       'table_open' => '<style>
