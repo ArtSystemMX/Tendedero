@@ -32,6 +32,28 @@ class Sistema extends CI_Controller{
     }
   }
 
+  function insertarCliente(){
+    $this->load->model('sistema_model');
+    $array=$this->input->post('array');
+    $respuesta=$this->sistema_model->insertarCliente($array);
+    echo $respuesta;
+  }
+
+  function modificarCliente(){
+    $this->load->model('sistema_model');
+    $array=$this->input->post('array');
+    $clienteModificarClave=$this->input->post('clienteModificarClave');
+    $respuesta=$this->sistema_model->modificarCliente($array,$clienteModificarClave);
+    echo $respuesta;
+  }
+
+  function eliminarCliente(){
+    $this->load->model('sistema_model');
+    $clienteEliminarClave=$this->input->post('clienteEliminarClave');
+    $respuesta=$this->sistema_model->eliminarCliente($clienteEliminarClave);
+    echo $respuesta;
+  }
+
   function cargarModuloClientes(){
 
     $query='';
@@ -39,59 +61,10 @@ class Sistema extends CI_Controller{
     if($this->input->post('query')){
       $query=$this->input->post('query');
     }
-    $this->table->set_heading(array('Nombre', 'Telefono','Modificar','Eliminar'));
+    $this->table->set_heading(array('Nombre', 'Telefono','',''));
     $consulta = $this->sistema_model->cargarModuloClientes($query);
     $template = array(
-      'table_open' => '<style>
-                        #clientes {
-                        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                        border-collapse: collapse;
-                        width: 100%;
-                        }
-
-                        #botones{
-                          align:"right";
-                          }
-
-                        #clientes td, #clientes th {
-                        border: 1px solid #ddd;
-                        padding: 8px;
-                        }
-
-                        #clientes tr:nth-child(even){background-color: #f2f2f2;}
-
-                        #clientes tr:hover {background-color: #ddd;}
-
-                        #clientes th {
-                        padding-top: 12px;
-                        padding-bottom: 12px;
-                        text-align: left;
-                        background-color: #FF5679;
-                        color: white;
-                        }
-
-                        input[type=submit] {
-                        width: 100%;
-                        background-color: #FF5679;
-                        color: white;
-                        padding: 5px 5px;
-                        margin: 8px 0;
-                        border: none;
-                        border-radius: 4px;
-                        cursor: pointer;
-                        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                        font-size:16px;
-                      }
-                      input[type=text]{
-                        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-                        font-size:16px;
-                        }
-
-                        input[type=submit]:hover {
-                          background-color: #FF8099;
-                        }
-
-                      </style><table id="clientes">',
+      'table_open' => '<table id="clientes">',
 
       'thead_open' => '<thead>',
       'thead_close' => '</thead>',

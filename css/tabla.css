@@ -1,0 +1,52 @@
+#clientes {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    font-size:18px;
+    width: 100%;
+}
+
+#botones{
+    text-align:"center";
+}
+
+#clientes td, #clientes th {
+    border: 0px solid #ddd;
+    padding: 2px 4px;
+    margin:auto;
+}
+
+#clientes tr:nth-child(even){background-color: #ffccd6;}
+
+#clientes tr:hover {background-color: #ddd;}
+
+#clientes th {
+    padding-top: 3px;
+    text-align: left;
+    background-color: #FF5679;
+    color: white;
+}
+
+button[type=button], .modal-button {
+    width: 100%;
+    background-color: #FF5679;
+    color: white;
+    padding: 4px 4px;
+    margin: 0px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:18px;
+}
+input[type=text]{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    font-size:16px;
+}
+
+button[type=button]:hover {
+    background-color: #FF8099;
+}
+
+::placeholder{
+color:#ffccd6;
+}
