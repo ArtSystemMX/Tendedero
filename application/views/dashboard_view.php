@@ -29,6 +29,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
           case 'servicios':
             cargarModuloServicios();
             break;
+          case 'venta':
+            cargarModuloVenta();
+            break;
           default:
             break;
         }
@@ -67,6 +70,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
         })
       });
     }
+
+    function cargarModuloVenta(){
+      $.ajax({
+        url: "<?php echo site_url('Venta/cargarModuloVenta'); ?>",
+        success: function(result){
+          $("#celdaFormulario").html(result);
+        },
+        error: function(result){
+          $("#celdaFormulario").html(result.responseText);
+        },
+        fail: (function(status){
+          $("#celdaFormulario").html("Fail");
+        })
+      });
+    }
   </script>
 </head>
 
@@ -74,7 +92,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
   <table class="table" style="width:100%; height:100%;">
     <tr>
-      <td style="background-color:lavender; width:15%; height:100%;">
+      <td style="background-color:lavender; width:10%; height:100%;">
         <aside class="menu">
           <ul class="menu-list">
             <p class="menu-label" style="font-size:18px; margin:3px;">
@@ -120,8 +138,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
           </ul>
         </aside>
       </td>
-      <td name="modulo" id="modulo" style="width:85%">
-        <table style="width:100%;">
+      <td name="modulo" id="modulo" style="width:95%">
+        <table style="width:100%; height:100%">
           <tr>
             <td name="celdaFormulario" id="celdaFormulario"></td>
           </tr>
