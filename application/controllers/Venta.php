@@ -14,14 +14,14 @@
 
         public function botonesServicios(){
             $consulta=$this->venta_model->cargarServicios();
-            $tablaBotones='<table style="padding:0;"><tr>';
+            $tablaBotones='<table id="tablaVenta" style="padding:0; height:100%;"><tr>';
             $contador=0;
             foreach ($consulta as $servicio) {
                 if ($contador==0) {
-                    $tablaBotones=$tablaBotones.'<td style="padding:4px;">'.$servicio['servicioNombre'].'</td>';
+                    $tablaBotones=$tablaBotones.'<td style="padding:4px; height:20%;">'.$servicio['servicioNombre'].'</td>';
                     $contador=1;
                 }else{
-                    $tablaBotones=$tablaBotones.'<td style="padding:4px;">'.$servicio['servicioNombre'].'</td></tr><tr>';
+                    $tablaBotones=$tablaBotones.'<td style="padding:4px; height:20%;">'.$servicio['servicioNombre'].'</td></tr><tr>';
                     $contador=0;
                 }
             }

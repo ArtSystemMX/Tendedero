@@ -98,7 +98,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <p class="menu-label" style="font-size:18px; margin:3px;">
               Ventas
             </p>
-            <li><a class="is-active" name="venta">Punto de Venta</a></li>
+            <li><a name="venta">Punto de Venta</a></li>
             <li><a name="caja">Caja</a></li>
             <li><a name="encargos">Encargos</a></li>
           </ul>
@@ -138,7 +138,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
           </ul>
         </aside>
       </td>
-      <td name="modulo" id="modulo" style="width:95%">
+      <td name="modulo" id="modulo" style="width:90%; padding:0;">
         <table style="width:100%; height:100%">
           <tr>
             <td name="celdaFormulario" id="celdaFormulario"></td>
