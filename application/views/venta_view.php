@@ -40,7 +40,7 @@
                 td=tr[i].cells;
                 if(td[0].innerHTML==nombreServicio){
                     td[2].innerHTML=Number(td[2].innerHTML)+1;
-                    td[3].innerHTML=Number(td[1].innerHTML)*Number(td[2].innerHTML);
+                    td[3].innerHTML=formatter.format(Number(precioServicio)*Number(td[2].innerHTML));
                     valorExistente=true;
                     break;
                 }
@@ -52,9 +52,9 @@
                 var celdaCantidad=fila.insertCell(2);
                 var celdaTotal=fila.insertCell(3);
                 celdaNombre.innerHTML=nombreServicio;
-                celdaPrecio.innerHTML=precioServicio;
+                celdaPrecio.innerHTML=formatter.format(Number(precioServicio));
                 celdaCantidad.innerHTML=1;
-                celdaTotal.innerHTML=precioServicio*1;
+                celdaTotal.innerHTML=formatter.format(Number(precioServicio)*1);
             }
         }else{
             var fila=table.insertRow(-1);
@@ -62,14 +62,50 @@
             var celdaPrecio=fila.insertCell(1);
             var celdaCantidad=fila.insertCell(2);
             var celdaTotal=fila.insertCell(3);
-            celdaNombre.innerHTML=nombreServicio;
-            celdaPrecio.innerHTML=precioServicio;
-            celdaCantidad.innerHTML=1;
-            celdaTotal.innerHTML=precioServicio*1;
+                celdaNombre.innerHTML=nombreServicio;
+                celdaPrecio.innerHTML=formatter.format(Number(precioServicio));
+                celdaCantidad.innerHTML=1;
+                celdaTotal.innerHTML=formatter.format(Number(precioServicio)*1);
         }
         $totalVenta=$totalVenta+precioServicio;
         $celdaTotal.innerHTML="Total: "+formatter.format(Number($totalVenta));
     }
+
+
+
+    function mostrarVentanaNuevo(){
+        $("#mClienteNuevo").addClass("is-active");
+
+    }
+    function insertarCliente() {
+        var array = {
+            vNombre: document.getElementById('clienteNuevoNombre').value.toUpperCase(),
+            vTelefono: document.getElementById('clienteNuevoTelefono').value
+        };
+        $.ajax({
+            url: "<?php echo site_url('Cliente/insertarCliente'); ?>",
+            method: "POST",
+            data: {
+                array: array
+            },
+            success: function() {
+                $(".modal").removeClass("is-active");
+                cargarTablaClientes("");
+            },
+            error: function(jqHZR, exception) {
+                alert("El cliente ya se encuentra registrado.");
+            },
+            fail: (function(status) {
+                alert("wut?");
+            })
+        });
+    }
+
+
+    function cerrarModal(){
+        $(".modal").removeClass("is-active");
+    }
+    
 
 
 </script>
@@ -93,13 +129,68 @@
     <table style="height:1%;"></table>
     <table style=" width:100%; height:24%;">
         <tr>            
-            <td id="datosCliente" style="border: 1px solid #ffccd6; width:25%;">
+            <td id="datosCliente" style="border: 1px solid #ffccd6; width:50%; margin:auto;">
+            <button onclick="mostrarVentanaNuevo()" style="font-size:24px; width:49%;" class="modal-button" name="clienteNuevo" id="clienteNuevo" type="button">Nuevo Cliente</button>
+            <button onclick="mostrarVentanaBuscar()" style="font-size:24px; width:49%;" class="modal-button" name="clienteNuevo" id="clienteNuevo" type="button">Buscar Cliente</button>
             </td>
-            <td id="datosVenta" style="font-size:24px; text-align:right; border: 1px solid #ffccd6; width:50%;">
-                <div id="totalVenta">Total: </div>
+            <td id="datosVenta" style="font-size:32px; margin: auto; border: 1px solid #ffccd6; width:25%;">
+                <div id="totalVenta" style="margin:auto; padding: auto;">Total: </div>
             </td>          
             <td id="metodoPago" style="border: 1px solid #ffccd6; width:25%;">
             </td>
         </tr>
     </table>
 </body>
+
+
+<div class="modal" id="mClienteNuevo">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="position:absolute; top:50px;">
+        <header class="modal-card-head" style="background-color: #FF5679;">
+            <p class="modal-card-title" style=" color: white;">Nuevo Cliente</p>
+            <button onclick="cerrarModal()" class="delete" aria-label="close"></button>
+        </header>
+        <form action="#" onsubmit="insertarCliente(); return false;">
+            <section class="modal-card-body">
+                <div>
+                    <label for="clienteNuevoNombre">Nombre:</label>
+                    <input class="input is-rounded is-primary" type="text" style="width:100%;  border-color:#FF5679; text-transform: uppercase;" id="clienteNuevoNombre" placeholder="Nombre..." required>
+                </div><br>
+                <div>
+                    <label for="clienteNuevoTelefono">Telefono:</label>
+                    <input class="input is-rounded is-primary" type="text" style="width:100%; border-color:#FF5679; text-transform: uppercase;" id="clienteNuevoTelefono" placeholder="Telefono..." required>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success modal-button">Guardar</button>
+                <button onclick="cerrarModal()" class="button is-delete modal-button">Cancelar</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="mClienteBuscar">
+    <div class="modal-background"></div>
+    <div class="modal-card" style="position:absolute; top:50px;">
+        <header class="modal-card-head" style="background-color: #FF5679;">
+            <p class="modal-card-title" style=" color: white;">Buscar Cliente</p>
+            <button onclick="cerrarModal()" class="delete" aria-label="close"></button>
+        </header>
+        <form action="#" onsubmit="insertarCliente(); return false;">
+            <section class="modal-card-body">
+                <div>
+                    <label for="clienteNuevoNombre">Nombre:</label>
+                    <input class="input is-rounded is-primary" type="text" style="width:100%;  border-color:#FF5679; text-transform: uppercase;" id="clienteNuevoNombre" placeholder="Nombre..." required>
+                </div><br>
+                <div>
+                    <label for="clienteNuevoTelefono">Telefono:</label>
+                    <input class="input is-rounded is-primary" type="text" style="width:100%; border-color:#FF5679; text-transform: uppercase;" id="clienteNuevoTelefono" placeholder="Telefono..." required>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success modal-button">Guardar</button>
+                <button onclick="cerrarModal()" class="button is-delete modal-button">Cancelar</button>
+            </footer>
+        </form>
+    </div>
+</div>

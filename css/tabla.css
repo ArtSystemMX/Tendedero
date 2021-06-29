@@ -17,6 +17,8 @@
 
 #tablaDatos tr:nth-child(even){background-color: #ffccd6;}
 
+#tablaDatos tr:nth-child(odd){background-color: #ffb7e7;}
+
 #tablaDatos tr:hover {background-color: #ddd;}
 
 #tablaDatos th {
