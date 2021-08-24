@@ -3,6 +3,10 @@
     $totalVenta=0;
     $celdaTotal=document.getElementById("totalVenta");
 
+    $clienteVenta="";
+    $clienteVentaNombre="";
+    $celdaNombreCliente=document.getElementById("infoCliente");
+
     $(document).ready(function(){
         cargarServicios();
     });
@@ -71,12 +75,33 @@
         $celdaTotal.innerHTML="Total: "+formatter.format(Number($totalVenta));
     }
 
-
+    function mostrarVentanaPago(){
+        $("#mPagarVenta").addClass("is-active");
+    }
 
     function mostrarVentanaNuevo(){
         $("#mClienteNuevo").addClass("is-active");
-
     }
+
+    function mostrarVentanaBuscar(){
+        $.ajax({
+                url: "<?php echo site_url('Cliente/tablaClientesVenta'); ?>",
+                method: "POST",
+                success: function(data) {
+                    $("#listaClientes").html(data);
+                },
+                error: function(result) {
+                    $("#listaClientes").html(result.responseText);
+                },
+                fail: (function(status) {
+                    $("#listaClientes").html("Fail");
+                })
+
+            });
+        $("#mClienteBuscar").addClass("is-active");
+    }
+
+
     function insertarCliente() {
         var array = {
             vNombre: document.getElementById('clienteNuevoNombre').value.toUpperCase(),
@@ -89,8 +114,8 @@
                 array: array
             },
             success: function() {
-                $(".modal").removeClass("is-active");
-                cargarTablaClientes("");
+                cerrarModal();
+                asignarCliente(array['vTelefono'], array['vNombre']);
             },
             error: function(jqHZR, exception) {
                 alert("El cliente ya se encuentra registrado.");
@@ -101,6 +126,13 @@
         });
     }
 
+    function asignarCliente($clienteTelefono, $clienteNombre){
+        alert($clienteTelefono);
+        $clienteVenta=$clienteTelefono;
+        $clienteVentaNombre=$clienteNombre;
+        $celdaNombreCliente.innerHTML="Cliente: "+$clienteNombre;
+        cerrarModal();
+    }
 
     function cerrarModal(){
         $(".modal").removeClass("is-active");
@@ -132,11 +164,14 @@
             <td id="datosCliente" style="border: 1px solid #ffccd6; width:50%; margin:auto;">
             <button onclick="mostrarVentanaNuevo()" style="font-size:24px; width:49%;" class="modal-button" name="clienteNuevo" id="clienteNuevo" type="button">Nuevo Cliente</button>
             <button onclick="mostrarVentanaBuscar()" style="font-size:24px; width:49%;" class="modal-button" name="clienteNuevo" id="clienteNuevo" type="button">Buscar Cliente</button>
+            <br><br>
+            <div style="font-size:24px;" id="infoCliente">Cliente: </div>
             </td>
             <td id="datosVenta" style="font-size:32px; margin: auto; border: 1px solid #ffccd6; width:25%;">
                 <div id="totalVenta" style="margin:auto; padding: auto;">Total: </div>
             </td>          
             <td id="metodoPago" style="border: 1px solid #ffccd6; width:25%;">
+                <div id="pagoVenta" style="margin:auto; padding:auto;"></div>
             </td>
         </tr>
     </table>
@@ -169,28 +204,13 @@
     </div>
 </div>
 
-<div class="modal" id="mClienteBuscar">
+<div class="modal" style="width:100%;" id="mClienteBuscar">
     <div class="modal-background"></div>
-    <div class="modal-card" style="position:absolute; top:50px;">
+    <div class="modal-card" style="position:absolute; top:50px; width:80%;">
         <header class="modal-card-head" style="background-color: #FF5679;">
             <p class="modal-card-title" style=" color: white;">Buscar Cliente</p>
             <button onclick="cerrarModal()" class="delete" aria-label="close"></button>
         </header>
-        <form action="#" onsubmit="insertarCliente(); return false;">
-            <section class="modal-card-body">
-                <div>
-                    <label for="clienteNuevoNombre">Nombre:</label>
-                    <input class="input is-rounded is-primary" type="text" style="width:100%;  border-color:#FF5679; text-transform: uppercase;" id="clienteNuevoNombre" placeholder="Nombre..." required>
-                </div><br>
-                <div>
-                    <label for="clienteNuevoTelefono">Telefono:</label>
-                    <input class="input is-rounded is-primary" type="text" style="width:100%; border-color:#FF5679; text-transform: uppercase;" id="clienteNuevoTelefono" placeholder="Telefono..." required>
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-success modal-button">Guardar</button>
-                <button onclick="cerrarModal()" class="button is-delete modal-button">Cancelar</button>
-            </footer>
-        </form>
+        <div id="listaClientes"></div>
     </div>
 </div>

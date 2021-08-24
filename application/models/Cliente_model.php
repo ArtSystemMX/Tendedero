@@ -26,6 +26,28 @@ class Cliente_model extends CI_Model{
     }
   }
 
+  function cargarClientesVenta($query){
+    $data = array();
+    $this->db->select("*");
+    $this->db->from("tCliente");
+    if($query!=''){
+      $this->db->like("vNombre",$query);
+      $this->db->or_like("vTelefono",$query);
+    }
+    $this->db->order_by('vNombre','DESC');
+    $consultaBd=$this->db->get();
+    if ($consultaBd->num_rows() > 0) {
+      foreach ($consultaBd->result_array() as $result) {
+        $data[]=array(
+          'clienteNombre' => '<b class="columnaNombre">'.$result['vNombre'].'</b>',
+          'clienteTelefono' => $result['vTelefono'],
+          'clienteModificar' => '<button type="button" class="modal-button" onclick="asignarCliente('.$result['vTelefono'].',\''.$result['vNombre'].'\')">Elegir</button>'
+        );
+      }
+      return $data;
+    }
+  }
+
   function insertarCliente($array){
     $data = $this->db->insert("tCliente",$array);
     return $data;
