@@ -168,7 +168,7 @@
             <div style="font-size:24px;" id="infoCliente">Cliente: </div>
             </td>
             <td id="datosVenta" style="font-size:32px; margin: auto; border: 1px solid #ffccd6; width:25%;">
-                <div id="totalVenta" style="margin:auto; padding: auto;">Total: </div>
+                <div id="totalVenta" style="margin:auto; padding: auto;">Total: $0.00</div>
             </td>          
             <td id="metodoPago" style="border: 1px solid #ffccd6; width:25%;">
                 <div id="pagoVenta" style="margin:auto; padding:auto;"></div>
